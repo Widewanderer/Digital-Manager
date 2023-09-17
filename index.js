@@ -53,7 +53,7 @@ function ReturnToMain() {
       {
         type: "list",
         name: "MainMenu",
-        message: "What would you like to do?",
+        message: "What would you like to do next?",
         choices: ["Return to Main Menu", "Quit"],
       },
     ])
@@ -76,7 +76,7 @@ function init() {
       handleQuit();
     } else if (choice === "View All Employees") {
       viewEmployees()
-      ReturnToMain();
+      setTimeout(ReturnToMain, 2000);
     } else if (choice === "Add Employee") {
       console.log(`You selected ${choice}`);
     } else if (choice === "Update Employee Role") {
