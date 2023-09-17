@@ -37,13 +37,34 @@ function handleQuit() {
 
 function viewEmployees() {
   console.log("View employees");
-  db.query("SELECT * FROM employees", function (err, results) {
+  db.query("SELECT * FROM employee", function (err, results) {
     if (err) {
       console.error(err);
     } else {
-      console.log(results);
+      console.table(results);
     }
   });
+}
+
+// Function to display the main menu and handle "Quit" and "Return to Main Menu" options
+function ReturnToMain() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "MainMenu",
+        message: "What would you like to do?",
+        choices: ["Return to Main Menu", "Quit"],
+      },
+    ])
+    .then((answers) => {
+      const choice = answers.MainMenu;
+      if (choice === "Quit") {
+        handleQuit();
+      } else if (choice === "Return to Main Menu") {
+        init(); // Return to the main menu
+      }
+    });
 }
 
 // initiation of program
@@ -54,7 +75,8 @@ function init() {
     if (choice === "Quit") {
       handleQuit();
     } else if (choice === "View All Employees") {
-      viewEmployees();
+      viewEmployees()
+      ReturnToMain();
     } else if (choice === "Add Employee") {
       console.log(`You selected ${choice}`);
     } else if (choice === "Update Employee Role") {
