@@ -34,18 +34,6 @@ function handleQuit() {
   console.log("Goodbye!");
   process.exit(0); // Exit the program with a success status code (0)
 }
-
-function viewEmployees() {
-  console.log("View employees");
-  db.query("SELECT * FROM employee", function (err, results) {
-    if (err) {
-      console.error(err);
-    } else {
-      console.table(results);
-    }
-  });
-}
-
 // Function to display the main menu and handle "Quit" and "Return to Main Menu" options
 function ReturnToMain() {
   inquirer
@@ -67,6 +55,20 @@ function ReturnToMain() {
     });
 }
 
+function viewEmployees() {
+  console.log("View employees");
+  db.query("SELECT * FROM employee", function (err, results) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.table(results);
+    }
+  });
+}
+
+
+
+
 // initiation of program
 function init() {
   inquirer.prompt(questions).then((answers) => {
@@ -75,8 +77,7 @@ function init() {
     if (choice === "Quit") {
       handleQuit();
     } else if (choice === "View All Employees") {
-      viewEmployees()
-      setTimeout(ReturnToMain, 2000);
+      viewEmployees();
     } else if (choice === "Add Employee") {
       console.log(`You selected ${choice}`);
     } else if (choice === "Update Employee Role") {
@@ -87,11 +88,13 @@ function init() {
       console.log(`You selected ${choice}`);
     } else if (choice === "View All Department") {
       console.log(`You selected ${choice}`);
-    } else choice === "Add Department";
-    {
+    } else if (choice === "Add Department") {
       console.log(`You selected ${choice}`);
     }
+
+    setTimeout(ReturnToMain, 2000); // Call ReturnToMain() after any menu option
   });
 }
+
 
 init();
