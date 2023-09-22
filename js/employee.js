@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const db = require("../db/connect.js")
+const db = require("../db/connect.js");
+//const init = require("./mainMenu.js");
 
 // EMPLPOYEES
 function viewEmployees() {
@@ -16,6 +17,17 @@ function viewEmployees() {
 }
 
 function addEmployee() {
+  const selectManager = db.query(
+    "SELECT id, name_first, name_last FROM employee",
+    function (err, results) {
+      // WHERE manager_id = null     (if wish to limit manager options)
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(results);
+      }
+    }
+  );
   inquirer
     .prompt([
       {
@@ -34,15 +46,17 @@ function addEmployee() {
         message: "Enter the role ID of the employee:",
       },
       {
-        type: "list",
+        type: "choice",
         name: "SelectManager",
-        message: "Select employee's manager",
-        choices: ["Belisarius Cawl", "Haldron-44 Stroika", null],
-      }
+        message: "Select the employee's manager",
+        choices: selectManager,
+        // array [{name: name_first + name_last, value: id}]  // loop over arry and format results to display in this manner. 
+       
+      },
       // EASY ROUTE- list Role IDs (manager should know)
-      // HARD - Nested prompts list the role names (connected to role id) 
-      // view roles 
-      // get data 
+      // HARD - Nested prompts list the role names (connected to role id)
+      // view roles
+      // get data
       // name and value (id)
     ])
     .then((answers) => {
