@@ -14,7 +14,7 @@ An Employee Managment tool utilizing MySQL2 and Inquirer. System runs in the ter
 
 Video
 
-
+file:///Users/tysontrotz/Desktop/Untitled_%20Sep%2021,%202023%2010_48%20PM.webm
 
 ---
 
