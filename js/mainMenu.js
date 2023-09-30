@@ -28,7 +28,7 @@ function init() {
     if (choice === "Quit") {
       handleQuit();
     } else if (choice === "View All Employees") {
-      viewEmployees();
+      viewEmployees().then(()=> setTimeout(init, 3 * 1000)); // make async, adds a promise, then plus delay in milliseconds 
     } else if (choice === "Add Employee") {
       addEmployee();
     } else if (choice === "Update Employee Role") {
